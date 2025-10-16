@@ -269,4 +269,17 @@ static int lvgl_init(void)
 	return 0;
 }
 
-SYS_INIT(lvgl_init, APPLICATION, CONFIG_APPLICATION_INIT_PRIORITY + 50);
+static void delayed_lvgl_start(struct k_work *work) {
+    lvgl_init(NULL);
+}
+
+K_WORK_DELAYABLE_DEFINE(lvgl_work, delayed_lvgl_start);
+
+static int lvgl_late_loader(const struct device *dev) {
+    // Esperamos un segundo para asegurar que settings y BLE estén listos
+    k_work_schedule(&lvgl_work, K_MSEC(1000));
+    return 0;
+}
+
+// SYS_INIT(lvgl_init, APPLICATION, CONFIG_APPLICATION_INIT_PRIORITY);
+SYS_INIT(lvgl_late_loader, APPLICATION, CONFIG_KERNEL_INIT_PRIORITY_DEFAULT);
