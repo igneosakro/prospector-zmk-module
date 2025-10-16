@@ -270,7 +270,7 @@ static int lvgl_init(void)
 }
 
 static void delayed_lvgl_start(struct k_work *work) {
-    lvgl_init(NULL);
+    lvgl_init();
 }
 
 K_WORK_DELAYABLE_DEFINE(lvgl_work, delayed_lvgl_start);
