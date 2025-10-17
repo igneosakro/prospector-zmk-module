@@ -15,6 +15,11 @@
 #include <zephyr/logging/log.h>
 LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
 
+#if CONFIG_DONGLE_SCREEN_WPM_ACTIVE
+#include "widgets/wpm_status.h"
+static struct zmk_widget_wpm_status wpm_status_widget;
+#endif
+
 static struct zmk_widget_layer_roller layer_roller_widget;
 static struct zmk_widget_battery_bar battery_bar_widget;
 static struct zmk_widget_caps_word_indicator caps_word_indicator_widget;
@@ -30,6 +35,11 @@ lv_obj_t *zmk_display_status_screen() {
     lv_obj_align(zmk_widget_caps_word_indicator_obj(&caps_word_indicator_widget), LV_ALIGN_RIGHT_MID, -10, 46);
 #endif
 
+#if CONFIG_DONGLE_SCREEN_WPM_ACTIVE
+    zmk_widget_wpm_status_init(&wpm_status_widget, screen);
+    lv_obj_align(zmk_widget_wpm_status_obj(&wpm_status_widget), LV_ALIGN_TOP_LEFT, 20, 20);
+#endif
+
     zmk_widget_battery_bar_init(&battery_bar_widget, screen);
     // lv_obj_set_width(zmk_widget_battery_bar_obj(&battery_bar_widget), lv_pct(100));
     lv_obj_set_size(zmk_widget_battery_bar_obj(&battery_bar_widget), lv_pct(100), 48);
@@ -38,7 +48,6 @@ lv_obj_t *zmk_display_status_screen() {
     zmk_widget_layer_roller_init(&layer_roller_widget, screen);
     lv_obj_set_size(zmk_widget_layer_roller_obj(&layer_roller_widget), 224, 140);
     lv_obj_align(zmk_widget_layer_roller_obj(&layer_roller_widget), LV_ALIGN_LEFT_MID, 0, -20);
-
 
     return screen;
 }
