@@ -24,4 +24,5 @@ int disp_set_orientation(void)
 	return 0;
 }
 
-SYS_INIT(disp_set_orientation, APPLICATION, 60);
+//SYS_INIT(disp_set_orientation, APPLICATION, 60);
+SYS_INIT(disp_set_orientation, APPLICATION, CONFIG_APPLICATION_INIT_PRIORITY);

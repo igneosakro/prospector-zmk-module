@@ -16,6 +16,7 @@ config ZMK_DISPLAY_STATUS_SCREEN_CUSTOM
     select LV_USE_FLEX
     select LV_USE_ROLLER
     select LV_COLOR_SCREEN_TRANSP
+    select ZMK_WPM
 
 choice ZMK_DISPLAY_WORK_QUEUE
     default ZMK_DISPLAY_WORK_QUEUE_DEDICATED
@@ -63,5 +64,11 @@ config LED
 config PROSPECTOR_USE_AMBIENT_LIGHT_SENSOR
     select SENSOR
     select APDS9960
+
+config DONGLE_SCREEN_WPM_ACTIVE
+    bool "WPM Widget active"
+    default y
+    help
+      If the WPM Widget should be active or not
 
 endif
