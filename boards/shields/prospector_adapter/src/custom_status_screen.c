@@ -35,9 +35,9 @@ lv_obj_t *zmk_display_status_screen() {
     lv_obj_align(zmk_widget_caps_word_indicator_obj(&caps_word_indicator_widget), LV_ALIGN_RIGHT_MID, -10, 46);
 #endif
 
-#if CONFIG_DONGLE_SCREEN_WPM_ACTIVE
+#ifdef CONFIG_DONGLE_SCREEN_WPM_ACTIVE
     zmk_widget_wpm_status_init(&wpm_status_widget, screen);
-    lv_obj_align(zmk_widget_wpm_status_obj(&wpm_status_widget), LV_ALIGN_TOP_LEFT, 20, 20);
+    lv_obj_align(zmk_widget_wpm_status_obj(&wpm_status_widget), LV_ALIGN_RIGHT_MID, 20, 20);
 #endif
 
     zmk_widget_battery_bar_init(&battery_bar_widget, screen);

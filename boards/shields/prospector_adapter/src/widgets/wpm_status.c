@@ -3,6 +3,7 @@
  *
  * SPDX-License-Identifier: MIT
  */
+#include "wpm_status.h"
 
 #include <zephyr/kernel.h>
 
@@ -12,8 +13,6 @@ LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
 #include <zmk/display.h>
 #include <zmk/event_manager.h>
 #include <zmk/events/wpm_state_changed.h>
-
-#include "wpm_status.h"
 #include <fonts.h>
 
 static sys_slist_t widgets = SYS_SLIST_STATIC_INIT(&widgets);
@@ -68,6 +67,9 @@ int zmk_widget_wpm_status_init(struct zmk_widget_wpm_status *widget, lv_obj_t *p
     // Only here as a sample
     // lv_label_set_text(widget->font_test, "󰕓󰘳󰘵󰘶");
     // TODO: Explizit als UTF-8 wert setzen?
+    lv_obj_set_style_text_color(widget->obj, lv_color_hex(0x030303), LV_PART_MAIN);
+    lv_obj_set_style_text_font(widget->obj, &SF_Compact_Text_Bold_32, LV_PART_MAIN);
+    lv_obj_set_style_text_align(widget->obj, LV_TEXT_ALIGN_CENTER, LV_PART_MAIN);
 
     sys_slist_append(&widgets, &widget->node);
 
